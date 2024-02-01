@@ -45,9 +45,7 @@ int VolgaVM::run(){
     while (true){
         {
             int res = get_value();
-            if(res != 0){
-                return 0;
-            }
+            if(res != 0) return 0;
             switch (value)
             {
                 //NOP
@@ -251,9 +249,7 @@ int VolgaVM::bios(){
         string cmd = command.substr(0, command.find(' '));
         command.erase(0, command.find(' '));
         string arg = command.substr(0, command.find(' '));
-        if(cmd.compare("exit") == 0){
-            return 0;
-        }
+        if(cmd.compare("exit") == 0) return 0;
         else if(cmd.compare("load") == 0){
             ifstream rom_in( "rom.bin", ios::binary );                      //)
             if(rom_in.good()){                                              //}https://stackoverflow.com/questions/5420317/reading-and-writing-binary-file
