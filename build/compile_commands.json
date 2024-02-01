@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/home/paul/Coding/ProjectVolga-VM/build",
+  "command": "/usr/bin/g++ -Dmisc_EXPORTS  -g -fPIC -o CMakeFiles/misc.dir/code/misc/qstring.cpp.o -c /home/paul/Coding/ProjectVolga-VM/code/misc/qstring.cpp",
+  "file": "/home/paul/Coding/ProjectVolga-VM/code/misc/qstring.cpp",
+  "output": "CMakeFiles/misc.dir/code/misc/qstring.cpp.o"
+},
+{
+  "directory": "/home/paul/Coding/ProjectVolga-VM/build",
+  "command": "/usr/bin/g++ -Dvolga_vm_EXPORTS  -g -fPIC -o CMakeFiles/volga-vm.dir/code/machine/machine.cpp.o -c /home/paul/Coding/ProjectVolga-VM/code/machine/machine.cpp",
+  "file": "/home/paul/Coding/ProjectVolga-VM/code/machine/machine.cpp",
+  "output": "CMakeFiles/volga-vm.dir/code/machine/machine.cpp.o"
+},
+{
+  "directory": "/home/paul/Coding/ProjectVolga-VM/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/main.dir/code/main.cpp.o -c /home/paul/Coding/ProjectVolga-VM/code/main.cpp",
+  "file": "/home/paul/Coding/ProjectVolga-VM/code/main.cpp",
+  "output": "CMakeFiles/main.dir/code/main.cpp.o"
+}
+]
