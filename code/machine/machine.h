@@ -21,6 +21,7 @@ namespace Volga{
             ushort accumulator;
             vector<ushort> rom;
             vector<ushort> ram;
+            vector<ushort> console_buffer;
             int get_value();
             int get_value(uint read_address);
             int set_value(uint write_address);
