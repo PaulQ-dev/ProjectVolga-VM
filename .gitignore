@@ -1,3 +1,9 @@
 build/libmisc.so
 build/libvolga-vm.so
 build/main
+build/CMakeFiles/main.dir/code/main.cpp.o
+build/CMakeFiles/main.dir/code/main.cpp.o.d
+build/CMakeFiles/misc.dir/code/misc/qstring.cpp.o
+build/CMakeFiles/misc.dir/code/misc/qstring.cpp.o.d
+build/CMakeFiles/volga-vm.dir/code/machine/machine.cpp.o
+build/CMakeFiles/volga-vm.dir/code/machine/machine.cpp.o.d
