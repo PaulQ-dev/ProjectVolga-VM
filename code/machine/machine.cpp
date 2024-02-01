@@ -17,8 +17,20 @@ int VolgaVM::get_value(uint read_address){
         value = rom[read_address];
         return 0;
     }
-    else if(read_address < 0x100000){
-        value = ram[read_address];
+    else if(read_address < 0x180000){
+        value = ram[read_address-0x080000];
+        return 0;
+    }
+    else{
+        return -1;
+    }
+}
+int VolgaVM::set_value(uint write_address){
+    if(write_address < 0x080000){
+        return -1;
+    }
+    else if(write_address < 0x180000){
+        ram[write_address-0x080000] = value;
         return 0;
     }
     else{
@@ -39,28 +51,60 @@ int VolgaVM::run(){
                 case 0x0000:
                     return 0;
                     break;
-                case 0x4100:
+                case 0x4100:{
                     address++;
-                    get_value();
+                    int res = get_value();
+                    if(res != 0) return res;
                     accumulator = value;
                     break;
+                }
                 case 0x4101:{
                     address++;
-                    get_value();
+                    int res = get_value();
+                    if(res != 0) return res;
                     ushort value_old = value;
                     address++;
-                    get_value();
-                    get_value(value_old*0x00010000+value);
+                    res = get_value();
+                    if(res != 0) return res;
+                    res = get_value(value_old*0x00010000+value);
+                    if(res != 0) return res;
                     accumulator = value;
-                    break; 
-                }
-                case 0x4200:
                     break;
+                }
+                case 0x4200:{
+					address++;
+                    int res = get_value();
+                    if(res != 0) return res;
+					ushort value_old = value;
+					address++;
+                    res = get_value();
+                    if(res != 0) return res;
+                    uint address_new = value_old*0x00010000+value;
+                    value = accumulator;
+                    res = set_value(address_new);
+                    break;
+				}
                 case 0x1600:{
                     address++;
                     get_value();
-                    if (!setlocale(LC_CTYPE, ""))
-                    {   
+                    if (!setlocale(LC_CTYPE, "")){
+                        fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");
+                        return 1;
+                    }
+                    printf("%lc",value);
+                    break;
+                }
+                case 0x1601:{
+                    address++;
+                    int res = get_value();
+                    if(res != 0) return res;
+                    ushort value_old = value;
+                    address++;
+                    res = get_value();
+                    if(res != 0) return res;
+                    res = get_value(value_old*0x00010000+value);
+                    if(res != 0) return res;
+                    if (!setlocale(LC_CTYPE, "")){
                         fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");
                         return 1;
                     }
