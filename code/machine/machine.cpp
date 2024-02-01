@@ -47,43 +47,11 @@ int VolgaVM::run(){
             }
             switch (value)
             {
-                case 0xFADE:
-                case 0x0000:
-                    return 0;
-                    break;
-                case 0x4100:{
-                    address++;
-                    int res = get_value();
-                    if(res != 0) return res;
-                    accumulator = value;
+                //NOP
+                case 0x1024:{
                     break;
                 }
-                case 0x4101:{
-                    address++;
-                    int res = get_value();
-                    if(res != 0) return res;
-                    ushort value_old = value;
-                    address++;
-                    res = get_value();
-                    if(res != 0) return res;
-                    res = get_value(value_old*0x00010000+value);
-                    if(res != 0) return res;
-                    accumulator = value;
-                    break;
-                }
-                case 0x4200:{
-					address++;
-                    int res = get_value();
-                    if(res != 0) return res;
-					ushort value_old = value;
-					address++;
-                    res = get_value();
-                    if(res != 0) return res;
-                    uint address_new = value_old*0x00010000+value;
-                    value = accumulator;
-                    res = set_value(address_new);
-                    break;
-				}
+                //COUT #UTF-16
                 case 0x1600:{
                     address++;
                     get_value();
@@ -94,6 +62,7 @@ int VolgaVM::run(){
                     printf("%lc",value);
                     break;
                 }
+                //COUT ADR
                 case 0x1601:{
                     address++;
                     int res = get_value();
@@ -111,14 +80,102 @@ int VolgaVM::run(){
                     printf("%lc",value);
                     break;
                 }
-                case 0x16FF:
+                //CLINE #UTF-16
+                case 0x1610:{
+                    address++;
+                    get_value();
+                    if (!setlocale(LC_CTYPE, "")){
+                        fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");
+                        return 1;
+                    }
+                    printf("%lc\n",value);
+                    break;
+                }
+                //CLINE ADR
+                case 0x1611:{
+                    address++;
+                    int res = get_value();
+                    if(res != 0) return res;
+                    ushort value_old = value;
+                    address++;
+                    res = get_value();
+                    if(res != 0) return res;
+                    res = get_value(value_old*0x00010000+value);
+                    if(res != 0) return res;
+                    if (!setlocale(LC_CTYPE, "")){
+                        fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");
+                        return 1;
+                    }
+                    printf("%lc\n",value);
+                    break;
+                }
+                //CLINE
+                case 0x162F:{
                     printf("\n");
                     break;
-                case 0x1024:
+                }
+                //CPUSH #N #UTF-16[N]
+                case 0x1620:{
+                    address++;
+                    get_value();
+                    ushort len = value;
+                    for(ushort i = 0; i < len; i++){
+                        address++;
+                        get_value();
+                        if (!setlocale(LC_CTYPE, "")){
+                            fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");
+                            return 1;
+                        }
+                        printf("%lc",value);
+                    }
                     break;
-                default:
+                }
+                //LDA #N
+                case 0x4100:{
+                    address++;
+                    int res = get_value();
+                    if(res != 0) return res;
+                    accumulator = value;
+                    break;
+                }
+                //LDA ADR
+                case 0x4101:{
+                    address++;
+                    int res = get_value();
+                    if(res != 0) return res;
+                    ushort value_old = value;
+                    address++;
+                    res = get_value();
+                    if(res != 0) return res;
+                    res = get_value(value_old*0x00010000+value);
+                    if(res != 0) return res;
+                    accumulator = value;
+                    break;
+                }
+                //STA ADR
+                case 0x4200:{
+					address++;
+                    int res = get_value();
+                    if(res != 0) return res;
+					ushort value_old = value;
+					address++;
+                    res = get_value();
+                    if(res != 0) return res;
+                    uint address_new = value_old*0x00010000+value;
+                    value = accumulator;
+                    res = set_value(address_new);
+                    break;
+				}
+                //HLT
+                case 0xFADE:{
+                    return 0;
+                    break;
+                }
+                //Other
+                default:{
                     return -1;
                     break;
+                }
             }
             address++;
         }
