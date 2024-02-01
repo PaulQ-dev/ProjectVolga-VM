@@ -55,11 +55,11 @@ int VolgaVM::run(){
                 case 0x1600:{
                     address++;
                     get_value();
-                    if (!setlocale(LC_CTYPE, "")){
-                        fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");
-                        return 1;
-                    }
-                    printf("%lc",value);
+                    if (!setlocale(LC_CTYPE, "")){                                      //)
+                        fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");//)
+                        return 1;                                                       //}https://stackoverflow.com/questions/26325227/c-print-value-of-unsigned-short-variable-as-unicode-character
+                    }                                                                   //)
+                    printf("%lc",value);                                                //)
                     break;
                 }
                 //COUT ADR
@@ -73,22 +73,22 @@ int VolgaVM::run(){
                     if(res != 0) return res;
                     res = get_value(value_old*0x00010000+value);
                     if(res != 0) return res;
-                    if (!setlocale(LC_CTYPE, "")){
-                        fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");
-                        return 1;
-                    }
-                    printf("%lc",value);
+                    if (!setlocale(LC_CTYPE, "")){                                      //)
+                        fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");//)
+                        return 1;                                                       //}https://stackoverflow.com/questions/26325227/c-print-value-of-unsigned-short-variable-as-unicode-character
+                    }                                                                   //)
+                    printf("%lc",value);                                                //)
                     break;
                 }
                 //CLINE #UTF-16
                 case 0x1610:{
                     address++;
                     get_value();
-                    if (!setlocale(LC_CTYPE, "")){
-                        fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");
-                        return 1;
-                    }
-                    printf("%lc\n",value);
+                    if (!setlocale(LC_CTYPE, "")){                                      //)
+                        fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");//)
+                        return 1;                                                       //}https://stackoverflow.com/questions/26325227/c-print-value-of-unsigned-short-variable-as-unicode-character
+                    }                                                                   //)
+                    printf("%lc",value);                                                //)
                     break;
                 }
                 //CLINE ADR
@@ -102,11 +102,11 @@ int VolgaVM::run(){
                     if(res != 0) return res;
                     res = get_value(value_old*0x00010000+value);
                     if(res != 0) return res;
-                    if (!setlocale(LC_CTYPE, "")){
-                        fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");
-                        return 1;
-                    }
-                    printf("%lc\n",value);
+                    if (!setlocale(LC_CTYPE, "")){                                      //)
+                        fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");//)
+                        return 1;                                                       //}https://stackoverflow.com/questions/26325227/c-print-value-of-unsigned-short-variable-as-unicode-character
+                    }                                                                   //)
+                    printf("%lc",value);                                                //)
                     break;
                 }
                 //CLINE
@@ -122,12 +122,16 @@ int VolgaVM::run(){
                     for(ushort i = 0; i < len; i++){
                         address++;
                         get_value();
-                        if (!setlocale(LC_CTYPE, "")){
-                            fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");
-                            return 1;
-                        }
-                        printf("%lc",value);
+                        if (!setlocale(LC_CTYPE, "")){                                      //)
+                            fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");//)
+                            return 1;                                                       //}https://stackoverflow.com/questions/26325227/c-print-value-of-unsigned-short-variable-as-unicode-character
+                        }                                                                   //)
+                        printf("%lc",value);     
                     }
+                    break;
+                }
+                //CIN
+                case 0x1700:{
                     break;
                 }
                 //LDA #N
@@ -203,9 +207,9 @@ int VolgaVM::bios(){
             return 0;
         }
         else if(cmd.compare("load") == 0){
-            ifstream rom_in( "rom.bin", ios::binary );
-            if(rom_in.good()){
-                vector<ubyte> buffer(istreambuf_iterator<char>(rom_in), {});
+            ifstream rom_in( "rom.bin", ios::binary );                      //)
+            if(rom_in.good()){                                              //}https://stackoverflow.com/questions/5420317/reading-and-writing-binary-file
+                vector<ubyte> buffer(istreambuf_iterator<char>(rom_in), {});//)
                 for(int i = 0; i < buffer.size(); i+=2){
                     rom[i/2] = 256*buffer[i]+buffer[i+1];
                 }
