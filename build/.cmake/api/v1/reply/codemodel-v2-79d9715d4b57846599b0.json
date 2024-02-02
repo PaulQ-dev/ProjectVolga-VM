@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"jsonFile" : "directory-.-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.6"
@@ -21,7 +21,7 @@
 					]
 				}
 			],
-			"name" : "Debug",
+			"name" : "",
 			"projects" : 
 			[
 				{
@@ -43,21 +43,21 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "main::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-main-Debug-c457218870947f843dc3.json",
+					"jsonFile" : "target-main-ab4e96aea27129f5bfe8.json",
 					"name" : "main",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "misc::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-misc-Debug-9b970fae529d7e3f83ba.json",
+					"jsonFile" : "target-misc-4e210054c259323be3fd.json",
 					"name" : "misc",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "volga-vm::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-volga-vm-Debug-1e11e325c4dfc306a2ea.json",
+					"jsonFile" : "target-volga-vm-68c274a02f533159d7de.json",
 					"name" : "volga-vm",
 					"projectIndex" : 0
 				}
@@ -73,6 +73,6 @@
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 6
+		"minor" : 3
 	}
 }

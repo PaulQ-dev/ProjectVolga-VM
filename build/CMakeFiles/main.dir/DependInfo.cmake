@@ -11,12 +11,10 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/paul/Coding/ProjectVolga-VM/code/main.cpp" "CMakeFiles/main.dir/code/main.cpp.o" "gcc" "CMakeFiles/main.dir/code/main.cpp.o.d"
   )
 
-# Targets to which this target links which contain Fortran sources.
-set(CMAKE_Fortran_TARGET_LINKED_INFO_FILES
-  )
-
-# Targets to which this target links which contain Fortran sources.
-set(CMAKE_Fortran_TARGET_FORWARD_LINKED_INFO_FILES
+# Targets to which this target links.
+set(CMAKE_TARGET_LINKED_INFO_FILES
+  "/home/paul/Coding/ProjectVolga-VM/build/CMakeFiles/volga-vm.dir/DependInfo.cmake"
+  "/home/paul/Coding/ProjectVolga-VM/build/CMakeFiles/misc.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

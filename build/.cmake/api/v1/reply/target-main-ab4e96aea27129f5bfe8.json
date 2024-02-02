@@ -39,12 +39,6 @@
 	"compileGroups" : 
 	[
 		{
-			"compileCommandFragments" : 
-			[
-				{
-					"fragment" : "-g"
-				}
-			],
 			"language" : "CXX",
 			"sourceIndexes" : 
 			[
@@ -56,11 +50,11 @@
 	[
 		{
 			"backtrace" : 2,
-			"id" : "misc::@6890427a1f51a3e7e1df"
+			"id" : "volga-vm::@6890427a1f51a3e7e1df"
 		},
 		{
 			"backtrace" : 2,
-			"id" : "volga-vm::@6890427a1f51a3e7e1df"
+			"id" : "misc::@6890427a1f51a3e7e1df"
 		}
 	],
 	"id" : "main::@6890427a1f51a3e7e1df",
@@ -68,10 +62,6 @@
 	{
 		"commandFragments" : 
 		[
-			{
-				"fragment" : "-g",
-				"role" : "flags"
-			},
 			{
 				"fragment" : "",
 				"role" : "flags"
