@@ -45,7 +45,7 @@ int VolgaVM::run(){
     while (true){
         {
             int res = get_value();
-            if(res != 0) return 0;
+            if(res != 0) return res;
             switch (value)
             {
                 //NOP
@@ -55,7 +55,8 @@ int VolgaVM::run(){
                 //COUT #UTF-16
                 case 0x1600:{
                     address++;
-                    get_value();
+                    int res = get_value();
+                    if(res != 0) return res;
                     if (!setlocale(LC_CTYPE, "")){                                      //)
                         fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");//)
                         return 1;                                                       //}https://stackoverflow.com/questions/26325227/c-print-value-of-unsigned-short-variable-as-unicode-character
@@ -84,7 +85,8 @@ int VolgaVM::run(){
                 //COUT #N #UTF-16[N]
                 case 0x1602:{
                     address++;
-                    get_value();
+                    int res = get_value();
+                    if(res != 0) return res;
                     ushort len = value;
                     for(ushort i = 0; i < len; i++){
                         address++;
@@ -97,10 +99,36 @@ int VolgaVM::run(){
                     }
                     break;
                 }
+                //COUT #N ADR
+                case 0x1603:{
+                    address++;
+                    int res = get_value();
+                    if(res != 0) return res;
+                    ushort len = value;
+                    address++;
+                    res = get_value();
+                    if(res != 0) return res;
+                    ushort value_old = value;
+                    address++;
+                    res = get_value();
+                    if(res != 0) return res;
+                    uint value_address = value_old*0x00010000+value;
+                    for(ushort i = 0; i < len; i++){
+                        get_value(value_address);
+                        if (!setlocale(LC_CTYPE, "")){                                      //)
+                            fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");//)
+                            return 1;                                                       //}https://stackoverflow.com/questions/26325227/c-print-value-of-unsigned-short-variable-as-unicode-character
+                        }                                                                   //)
+                        printf("%lc",value);
+                        value_address++;     
+                    }
+                    break;
+                }
                 //CLINE #UTF-16
                 case 0x1610:{
                     address++;
-                    get_value();
+                    int res = get_value();
+                    if(res != 0) return res;
                     if (!setlocale(LC_CTYPE, "")){                                      //)
                         fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");//)
                         return 1;                                                       //}https://stackoverflow.com/questions/26325227/c-print-value-of-unsigned-short-variable-as-unicode-character
@@ -129,7 +157,8 @@ int VolgaVM::run(){
                 //CLINE #N #UTF-16[N]
                 case 0x1612:{
                     address++;
-                    get_value();
+                    int res = get_value();
+                    if(res != 0) return res;
                     ushort len = value;
                     for(ushort i = 0; i < len; i++){
                         address++;
@@ -139,6 +168,32 @@ int VolgaVM::run(){
                             return 1;                                                       //}https://stackoverflow.com/questions/26325227/c-print-value-of-unsigned-short-variable-as-unicode-character
                         }                                                                   //)
                         printf("%lc",value);     
+                    }
+                    printf("\n");
+                    break;
+                }
+                //CLINE #N ADR
+                case 0x1613:{
+                    address++;
+                    int res = get_value();
+                    if(res != 0) return res;
+                    ushort len = value;
+                    address++;
+                    res = get_value();
+                    if(res != 0) return res;
+                    ushort value_old = value;
+                    address++;
+                    res = get_value();
+                    if(res != 0) return res;
+                    uint value_address = value_old*0x00010000+value;
+                    for(ushort i = 0; i < len; i++){
+                        get_value(value_address);
+                        if (!setlocale(LC_CTYPE, "")){                                      //)
+                            fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");//)
+                            return 1;                                                       //}https://stackoverflow.com/questions/26325227/c-print-value-of-unsigned-short-variable-as-unicode-character
+                        }                                                                   //)
+                        printf("%lc",value);
+                        value_address++;     
                     }
                     printf("\n");
                     break;
@@ -178,6 +233,81 @@ int VolgaVM::run(){
                         printf("%lc",console_buffer[i]);  
                     }
                     printf("\n");  
+                    break;
+                }
+                //CBCLR
+                case 0x170F:{
+                    console_buffer.clear();
+                    break;
+                }
+                //CPUSH #UTF-16
+                case 0x1710:{
+                    address++;
+                    int res = get_value();
+                    if(res != 0) return res;
+                    console_buffer.push_back(value);
+                    break;
+                }
+                //CPUSH ADR
+                case 0x1711:{
+                    address++;
+                    int res = get_value();
+                    if(res != 0) return res;
+                    ushort value_old = value;
+                    address++;
+                    res = get_value();
+                    if(res != 0) return res;
+                    res = get_value(value_old*0x00010000+value);
+                    if(res != 0) return res;
+                    console_buffer.push_back(value);
+                    break;
+                }
+                //CPUSH #N #UTF-16[]
+                case 0x1712:{
+                    address++;
+                    int res = get_value();
+                    if(res != 0) return res;
+                    ushort len = value;
+                    for(ushort i = 0; i < len; i++){
+                        address++;
+                        res = get_value();
+                        if(res != 0) return res;
+                        if (!setlocale(LC_CTYPE, "")){                                      //)
+                            fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");//)
+                            return 1;                                                       //}https://stackoverflow.com/questions/26325227/c-print-value-of-unsigned-short-variable-as-unicode-character
+                        }                                                                   //)
+                        console_buffer.push_back(value);     
+                    }
+                    break;
+                }
+                //CPUSH #N ADR
+                case 0x1713:{
+                    address++;
+                    int res = get_value();
+                    if(res != 0) return res;
+                    ushort len = value;
+                    address++;
+                    res = get_value();
+                    if(res != 0) return res;
+                    ushort value_old = value;
+                    address++;
+                    res = get_value();
+                    if(res != 0) return res;
+                    uint value_address = value_old*0x00010000+value;
+                    for(ushort i = 0; i < len; i++){
+                        get_value(value_address);
+                        if (!setlocale(LC_CTYPE, "")){                                      //)
+                            fprintf(stderr, "Error:Please check LANG, LC_CTYPE, LC_ALL.\n");//)
+                            return 1;                                                       //}https://stackoverflow.com/questions/26325227/c-print-value-of-unsigned-short-variable-as-unicode-character
+                        }                                                                   //)
+                        console_buffer.push_back(value);
+                        value_address++;     
+                    }
+                    break;
+                }
+                //CPUSHA
+                case 0x171A:{
+                    console_buffer.push_back(accumulator);
                     break;
                 }
                 //LDA #N
@@ -223,7 +353,8 @@ int VolgaVM::run(){
                 }
                 //Other
                 default:{
-                    return -1;
+                    cout << address << " : " << value << endl;
+                    return -2;
                     break;
                 }
             }
