@@ -1,1 +1,0 @@
-/usr/bin/g++ -fPIC -shared -Wl,-soname,libvolga-vm.so -o libvolga-vm.so CMakeFiles/volga-vm.dir/code/machine/machine.cpp.o 

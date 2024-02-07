@@ -1,5 +1,0 @@
-/home/paul/Coding/ProjectVolga-VM/build/CMakeFiles/main.dir
-/home/paul/Coding/ProjectVolga-VM/build/CMakeFiles/volga-vm.dir
-/home/paul/Coding/ProjectVolga-VM/build/CMakeFiles/misc.dir
-/home/paul/Coding/ProjectVolga-VM/build/CMakeFiles/edit_cache.dir
-/home/paul/Coding/ProjectVolga-VM/build/CMakeFiles/rebuild_cache.dir
