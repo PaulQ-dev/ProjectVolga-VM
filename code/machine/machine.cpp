@@ -364,7 +364,7 @@ int VolgaVM::run(){
     return 0;
 }
 int VolgaVM::bios(){
-    cout << "Welcome to Volga 16bit Virtual Machine v0.1\n" << "Type 'exit' to exit\n";
+    cout << "Welcome to Volga 16bit Virtual Machine v0.2\nVolga BIOS v1.0" << "Type 'exit' to exit\n";
     bool state = true;
     while(true){
         string input;
