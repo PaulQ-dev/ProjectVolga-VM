@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -shared -Wl,-soname,libmisc.so -o libmisc.so CMakeFiles/misc.dir/code/misc/qstring.cpp.o 

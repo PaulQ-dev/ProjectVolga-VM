@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/main.dir/code/main.cpp.o -o main  -Wl,-rpath,/home/paul/projects/ProjectVolga-VM/build libvolga-vm.so libmisc.so 
